@@ -63,7 +63,6 @@ pre[class*="language-"] {
 	margin: .5em 0;
 	overflow: auto;
 } */
-
 textarea.codeflask__textarea {
 	border-color: 
 	background: #2d2d2d;
@@ -175,6 +174,15 @@ pre[class*="language-"] {
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div>
 		<header><h4>spid's nodejs discord embed generator</h4></header>
+		  <div style="position: relative;width: 75%;display: block;margin-left: auto;margin-right: auto; color: white;" class="input-field col s12">
+    <select>
+      <option style="background-color: rgb(39, 37, 53);" onselect="lgge = 'js'" value="js" selected>JavaScript</option>
+      <option style="background-color: rgb(39, 37, 53);" onselect="lgge = 'python2'" value="python2">Python2</option>
+      <option style="background-color: rgb(39, 37, 53);" onselect="lgge = '[ython3'" value="python3">Python3</option>
+      <option style="background-color: rgb(39, 37, 53);" onselect="lgge = 'rust'" value="rust">Rust</option>
+    </select>
+    <label>Language</label>
+  </div>
 		<div class="input" id="input"></div>
 		<button onclick="submit()" id="submit" class="waves-effect waves-blue btn-large" style="background-color: rgb(243, 35, 163);">Let's Go!</button><br><br><code>Output:</code><br>
 		<div>
@@ -183,7 +191,16 @@ pre[class*="language-"] {
 		</div>
 		<h6> Type JS code into the above text box, press "Let's Go!", copy and paste the link given into discord, and that's it!</h6>
 </div>
-<script>const flask = new CodeFlask('#input', { language: 'js',
+<script>
+	let lgge
+	let instance
+document.addEventListener('DOMContentLoaded', function() {
+    var elem = document.querySelectorAll('select');
+		var instances = M.FormSelect.init(elem);
+		instance = M.FormSelect.getInstance(elem[0])
+});
+window.onload = "document.querySelectorAll('select > *').forEach(elem => {elem.style.backgroundColor = 'rgb(39, 37, 53)'; elem.style.color = 'white'})"
+const flask = new CodeFlask('#input', { language: 'js',
 defaultTheme: false,
 lineNumbers: true
 });
@@ -194,6 +211,7 @@ let Submit = document.getElementById('submit')
 flask.onUpdate((code) => {
 	for (let i of document.getElementsByClassName('codeflask__lines')) {
   i.style =	'background-color: #383a44;'}
+	flask.language = instance.input.value.toLowerCase()
 });
 
 // How to update your editor with custom content:
@@ -203,7 +221,7 @@ flask.updateCode(new_content);
 // Submit.onClick = submit();
 
 function submit() {
-	output.innerText = ('https://embed.spidunno.gq/node?code=' + encodeURI(flask.code))
+	output.innerText = ('https://embed.spidunno.gq/node?code=' + encodeURI(flask.code) + '&lgge=' + instance.input.value.toLowerCase())
 };
 
 var clipboard = new ClipboardJS('#copy');

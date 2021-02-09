@@ -1,1 +1,3 @@
-console.log('Example!')
+fn main() {
+  println!("Hello, world!");
+}

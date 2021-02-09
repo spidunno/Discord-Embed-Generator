@@ -24,14 +24,15 @@ def node():
 	code = open("thing.js", "w")
 	code.write(flask.request.args.get('code'))
 	code = open("thing.js", "r")
+	lgge = flask.request.args.get('lgge')
 	data = json.dumps({
-		"language": "js",
+		"language": lgge,
   	"source": code.read()
 	}, indent = 2)
 	code.close()
 	resp = requests.post("https://emkc.org/api/v1/piston/execute/", headers=headers, data=data)
 	out = resp.json()['output']
-	return flask.redirect("/embed?title=Node.js&body=Output: \n" + str(out))
+	return flask.redirect("/embed?title=" + flask.request.args.get('lgge') + "&body=Output: \n" + str(out))
 
 @app.route('/embed')
 def embed():
