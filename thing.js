@@ -1,1 +1,1 @@
-console.log('Example!')
+print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee e  e ee ee eeee")
