@@ -1,0 +1,28 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+	background-color: rgb(39, 37, 53);
+	font-family: 'Roboto', sans-serif;
+	color: lightgrey;
+	text-align: center;
+}
+
+#input {
+	position: relative;
+  width: 75%;
+  height: 336px;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+	margin-top: 25px;
+	margin-bottom: calc(25px);
+}
+
+code.output {
+	border-radius: 25px;
+	border-color: rgba(0, 0, 0, 0.493);
+}
+
+dfsdf {
+	background-color: #383a44
+} */

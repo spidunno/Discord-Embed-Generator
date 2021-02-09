@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>spid's discord nodejs embed generator</title>
+    <style>
+			@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+	background-color: rgb(39, 37, 53);
+	font-family: 'Roboto', sans-serif;
+	color: lightgrey;
+	text-align: center;
+}
+
+#input {
+	position: relative;
+  width: 75%;
+  height: 336px;
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+	margin-top: 25px;
+	margin-bottom: calc(25px);
+}
+
+code.output {
+	border-radius: 25px;
+	border-color: rgba(0, 0, 0, 0.493);
+}
+
+
+
+
+/* code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 2;
+	-o-tab-size: 2;
+	tab-size: 2;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+} */
+
+/* Code blocks */
+/* pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+} */
+
+textarea.codeflask__textarea {
+	border-color: 
+	background: #2d2d2d;
+	color: transparent;
+	caret-color: lightgrey;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: transparent;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.codeflask {
+	border-radius: 10px;
+	border-width: 1px;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
+}
+
+.token.punctuation {
+	color: #ccc;
+}
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
+}
+
+.token.function-name {
+	color: #6196cc;
+}
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+.token.inserted {
+	color: green;
+}
+		</style>
+  </head>
+  <body>
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codeflask/1.4.1/codeflask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div>
+		<header><h4>spid's nodejs discord embed generator</h4></header>
+		<div class="input" id="input"></div>
+		<button onclick="submit()" id="submit" class="waves-effect waves-blue btn-large" style="background-color: rgb(243, 35, 163);">Let's Go!</button><br><br><code>Output:</code><br>
+		<div>
+		<code id="output" class="output"> Output URL </code>
+		<button style="background-color: rgb(243, 35, 163);" id="copy" data-clipboard-action="copy" data-clipboard-target="#output" class="waves-effect waves-blue btn-small"><i class="material-icons">content_copy</i></button>
+		</div>
+		<h6> Type JS code into the above text box, press "Let's Go!", copy and paste the link given into discord, and that's it!</h6>
+</div>
+<script>const flask = new CodeFlask('#input', { language: 'js',
+defaultTheme: false,
+lineNumbers: true
+});
+let output = document.getElementById('output')
+let Submit = document.getElementById('submit')
+
+// How to listen for changes on your editor
+flask.onUpdate((code) => {
+	for (let i of document.getElementsByClassName('codeflask__lines')) {
+  i.style =	'background-color: #383a44;'}
+});
+
+// How to update your editor with custom content:
+const new_content = 'console.log("this is a test")';
+flask.updateCode(new_content);
+
+// Submit.onClick = submit();
+
+function submit() {
+	output.innerText = ('https://embed.spidunno.gq/node?code=' + encodeURI(flask.code))
+};
+
+var clipboard = new ClipboardJS('#copy');
+
+clipboard.on('success', function(e) {
+	M.toast({html: 'Succesfully copied to clipboard!'})
+});
+
+clipboard.on('error', function(e) {
+	M.toast({html: 'Hmmm. Something went wrong.'})
+});</script>
+  </body>
+</html>
